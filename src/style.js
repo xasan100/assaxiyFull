@@ -1,17 +1,13 @@
-
-
-
 import React from "react";
 import ReactDOM from "react-dom";
-import App from './Root/App';
+import App from "./App";
 
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 
-import productsReducer, { productsFetch } from './Components/features/ProductSlice';
-import { productsApi } from './Components/features/ProductsApi';
-import cartReducer  from "./Components/features/cartSlice";
-
+import productsReducer, { productsFetch } from "./slices/productsSlice";
+import cartReducer, { getTotals } from "./slices/cartSlice";
+import { productsApi } from "./slices/productsApi";
 
 const store = configureStore({
   reducer: {
@@ -23,11 +19,8 @@ const store = configureStore({
     getDefaultMiddleware().concat(productsApi.middleware),
 });
 
-
 store.dispatch(productsFetch());
-// store.dispatch(getTotals());
-
-// store.dispatch(getToals());
+store.dispatch(getTotals());
 
 ReactDOM.render(
   <React.StrictMode>
